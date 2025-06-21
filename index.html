@@ -198,24 +198,6 @@
   background-color: #1c4a3e;
 }
 
-
-.see-all-button {
-  background-color: #14362f;
-  color: #e2ddca;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
-  display: inline-block;
-}
-.see-all-button:hover {
-  background-color: #1c4a3e;
-}
-
 </style>
 </head>
 <body>
@@ -225,6 +207,8 @@
   <button id="walletButton" class="wallet-button" onclick="toggleWallet()">Connect Wallet</button>
 </div>
 
+
+  <div id="walletStatus" style="margin-top: 10px; color: #00FF88;"></div>
 
   <div class="subtitle">The official NFT marketplace on Gorbagana.<br>Oscar certified. Built for trash.</div>
   <a href="https://x.com/gorbplace" class="community-button" target="_blank">JOIN COMMUNITY</a>
@@ -388,7 +372,7 @@ async function connectWallet() {
     try {
       const resp = await window.solana.connect();
       const walletAddress = resp.publicKey.toString();
-      alert("Connected wallet: " + walletAddress);
+      document.getElementById('walletStatus').innerText = 'Connected: ' + walletAddress;
       walletConnected = true;
       document.getElementById("walletButton").innerText = "Disconnect Wallet";
     } catch (err) {
@@ -424,11 +408,6 @@ function toggleWallet() {
     <p>This is a detail view for the selected collection.</p>
     <p style="color: #888; font-size: 0.9rem;">gorbplace has not officially launched yet.</p>
   </div>
-</div>
-
-
-<div style="text-align: center; margin-top: 40px;">
-  <a href="#" class="see-all-button">See all Collections</a>
 </div>
 
 </body>
