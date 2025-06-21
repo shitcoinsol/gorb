@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="ico" href="favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gorbplace</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #002D24;
+      color: #e2ddca;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      font-size: 3rem;
+      font-weight: 600;
+      color: #e2ddca;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #d0d7c6;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .community-button {
+      background-color: #14362f;
+      color: #e2ddca;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease-in-out;
+      margin-bottom: 40px;
+      box-shadow: inset 0 0 0 1px #355348;
+    }
+
+    .community-button:hover {
+      background-color: #1c4a3e;
+      transform: translateY(-1px);
+      box-shadow: inset 0 0 0 1px #4c6c5f;
+    }
+
+    .search-input {
+      margin-bottom: 20px;
+      padding: 10px 14px;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      background-color: #0f3a2e;
+      color: #e2ddca;
+    }
+
+    .demo-market {
+      margin-top: 0;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .market-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #e2ddca;
+      background-color: #013025;
+      border: 1px solid #1c463a;
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 0.95rem;
+    }
+
+    .market-table th, .market-table td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid #1c463a;
+    }
+
+    .market-table tr {
+      transition: background 0.2s ease;
+      cursor: pointer;
+    }
+
+    .market-table tr:hover {
+      background-color: #014737;
+    }
+
+    .market-table th {
+      background-color: #014132;
+      font-weight: 600;
+    }
+  
+    .quote-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .quote-text {
+      font-size: 1.1rem;
+      color: #e2ddca;
+      font-weight: 500;
+    }
+    .quote-banner img {
+      height: 100px;
+    }
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 99;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+  background-color: #013025;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #355348;
+  width: 80%;
+  max-width: 600px;
+  color: #e2ddca;
+  border-radius: 8px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+.wallet-button {
+  background-color: #14362f;
+  color: #e2ddca;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  margin-top: 10px;
+  box-shadow: inset 0 0 0 1px #355348;
+}
+.wallet-button:hover {
+  background-color: #1c4a3e;
+}
+
+
+.top-bar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+
+.wallet-button {
+  background-color: #14362f;
+  color: #e2ddca;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  margin-top: 10px;
+  box-shadow: inset 0 0 0 1px #355348;
+}
+.wallet-button:hover {
+  background-color: #1c4a3e;
+}
+
+
+.see-all-button {
+  background-color: #14362f;
+  color: #e2ddca;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+}
+.see-all-button:hover {
+  background-color: #1c4a3e;
+}
+
+</style>
+</head>
+<body>
+  <div class="logo">gorbplace</div>
+  
+<div class="top-bar">
+  <button id="walletButton" class="wallet-button" onclick="toggleWallet()">Connect Wallet</button>
+</div>
+
+
+  <div class="subtitle">The official NFT marketplace on Gorbagana.<br>Oscar certified. Built for trash.</div>
+  <a href="https://x.com/gorbplace" class="community-button" target="_blank">JOIN COMMUNITY</a>
+
+  
+    <div class="quote-banner">
+      <div class="quote-text">I hate all these NFTs. Especially yours.</div>
+      <img src="oscar.png" alt="Oscar" />
+    </div>
+
+    <input type="text" id="searchInput"
+ onkeyup="filterTable()" class="search-input" placeholder="Search collections...">
+
+  <div class="demo-market">
+    <table class="market-table" id="collectionTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Collection</th>
+          <th onclick="sortTable('floor')" style="cursor:pointer;">Floor</th>
+          <th onclick="sortTable('volume')" style="cursor:pointer;">Volume</th>
+        </tr>
+      </thead>
+      <tbody><tr onclick="showCollection('FLOOR FIGHTERS')">
+          <td>1</td>
+          <td>FLOOR FIGHTERS</td>
+          <td>1.6 $GOR</td>
+          <td>14.3K</td>
+        </tr>
+        <tr onclick="showCollection('GARBMON')">
+          <td>2</td>
+          <td>GARBMON</td>
+          <td>1.5 $GOR</td>
+          <td>13.7K</td>
+        </tr>
+        <tr onclick="showCollection('STUCKED')">
+          <td>3</td>
+          <td>STUCKED</td>
+          <td>3.2 $GOR</td>
+          <td>12.0K</td>
+        </tr>
+        <tr onclick="showCollection('TRASH GODS')">
+          <td>4</td>
+          <td>TRASH GODS</td>
+          <td>2.1 $GOR</td>
+          <td>12.0K</td>
+        </tr>
+        <tr onclick="showCollection('GOBLIN CREW')">
+          <td>5</td>
+          <td>GOBLIN CREW</td>
+          <td>2.4 $GOR</td>
+          <td>11.1K</td>
+        </tr>
+        <tr onclick="showCollection('MOLDHEADS')">
+          <td>6</td>
+          <td>MOLDHEADS</td>
+          <td>4.7 $GOR</td>
+          <td>10.2K</td>
+        </tr>
+        <tr onclick="showCollection('BINAGLYS')">
+          <td>7</td>
+          <td>BINAGLYS</td>
+          <td>1.8 $GOR</td>
+          <td>9.0K</td>
+        </tr>
+        <tr onclick="showCollection('FLOOR WHALES')">
+          <td>8</td>
+          <td>FLOOR WHALES</td>
+          <td>3.9 $GOR</td>
+          <td>8.6K</td>
+        </tr>
+        <tr onclick="showCollection('GORBWAVERS')">
+          <td>9</td>
+          <td>GORBWAVERS</td>
+          <td>0.9 $GOR</td>
+          <td>6.4K</td>
+        </tr>
+        <tr onclick="showCollection('RUGGED PALS')">
+          <td>10</td>
+          <td>RUGGED PALS</td>
+          <td>0.7 $GOR</td>
+          <td>5.5K</td>
+        </tr></tbody>
+    </table>
+  </div>
+
+  <script>
+    function showNotYet() {
+      alert("not yet");
+    }
+
+    function filterTable() {
+      const input = document.getElementById("searchInput");
+      const filter = input.value.toUpperCase();
+      const table = document.getElementById("collectionTable");
+      const tr = table.getElementsByTagName("tr");
+
+      for (let i = 1; i < tr.length; i++) {
+        const td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          const txtValue = td.textContent || td.innerText;
+          tr[i].style.display = txtValue.toUpperCase().includes(filter) ? "" : "none";
+        }
+      }
+    }
+  
+function showCollection(name) {
+  document.getElementById("collectionTitle").textContent = name;
+  document.getElementById("collectionModal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("collectionModal").style.display = "none";
+}
+
+
+let sortDirection = {
+  floor: 'desc',
+  volume: 'desc'
+};
+
+function parseVolume(vol) {
+  return parseFloat(vol.replace('K', '')) * 1000;
+}
+
+function parseFloor(val) {
+  return parseFloat(val.split(' ')[0]);
+}
+
+function sortTable(column) {
+  const table = document.getElementById("collectionTable");
+  const rows = Array.from(table.rows).slice(1);
+  let comparator;
+
+  if (column === 'floor') {
+    comparator = (a, b) => {
+      const aVal = parseFloor(a.cells[2].innerText);
+      const bVal = parseFloor(b.cells[2].innerText);
+      return sortDirection.floor === 'asc' ? aVal - bVal : bVal - aVal;
+    };
+    sortDirection.floor = sortDirection.floor === 'asc' ? 'desc' : 'asc';
+  } else if (column === 'volume') {
+    comparator = (a, b) => {
+      const aVol = parseVolume(a.cells[3].innerText);
+      const bVol = parseVolume(b.cells[3].innerText);
+      return sortDirection.volume === 'asc' ? aVol - bVol : bVol - aVol;
+    };
+    sortDirection.volume = sortDirection.volume === 'asc' ? 'desc' : 'asc';
+  }
+
+  rows.sort(comparator);
+
+  rows.forEach(row => table.tBodies[0].appendChild(row));
+}
+
+
+let walletConnected = false;
+
+async function connectWallet() {
+  if (window.solana && window.solana.isPhantom) {
+    try {
+      const resp = await window.solana.connect();
+      const walletAddress = resp.publicKey.toString();
+      alert("Connected wallet: " + walletAddress);
+      walletConnected = true;
+      document.getElementById("walletButton").innerText = "Disconnect Wallet";
+    } catch (err) {
+      console.error("Wallet connection failed", err);
+    }
+  } else {
+    alert("Phantom or Backpack Wallet not found. Please install it.");
+  }
+}
+
+function disconnectWallet() {
+  if (window.solana && window.solana.disconnect) {
+    window.solana.disconnect();
+  }
+  walletConnected = false;
+  document.getElementById("walletButton").innerText = "Connect Wallet";
+}
+
+function toggleWallet() {
+  if (walletConnected) {
+    disconnectWallet();
+  } else {
+    connectWallet();
+  }
+}
+
+</script>
+
+<div id="collectionModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="collectionTitle">Collection Name</h2>
+    <p>This is a detail view for the selected collection.</p>
+    <p style="color: #888; font-size: 0.9rem;">gorbplace has not officially launched yet.</p>
+  </div>
+</div>
+
+
+<div style="text-align: center; margin-top: 40px;">
+  <a href="#" class="see-all-button">See all Collections</a>
+</div>
+
+</body>
+</html>
